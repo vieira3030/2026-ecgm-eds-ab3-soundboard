@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Soundboard JS
 
 Projeto desenvolvido no âmbito da disciplina de Engenharia de Software.
@@ -22,3 +23,11 @@ Soundboard web em JavaScript puro que permite reproduzir sons com botões e faze
 - HTML5
 - CSS3
 - JavaScript (Web Audio API)
+=======
+# 2026-ecgm-eds-ab3-soundboard
+Afonso Manuel Gomes Sousa nº34066
+Rodrigo Fernandes Malheiro nº33103
+Rodrigo Miguel Castro Vieira nº33445
+
+Sprints:
+>>>>>>> 1d0a5e7726cf03747a14fe8b6a254b9337186faa
