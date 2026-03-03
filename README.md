@@ -14,7 +14,7 @@ Soundboard web em JavaScript puro que permite reproduzir sons com botões e faze
 2. Abrir o ficheiro `index.html` no browser
 
 ## Grupo
-- Afonso
+- Afonso Manuel Gomes 
 - Rodrigo Malheiro
 - Rodrigo Vieira
 
