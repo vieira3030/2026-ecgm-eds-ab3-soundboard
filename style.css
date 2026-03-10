@@ -37,17 +37,36 @@ h1 {
     font-size: 1rem;
     padding: 30px 10px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Transição mais "elástica" */
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Hover: Feedback visual ao passar o rato */
 .sound-btn:hover {
     background-color: #0f3460;
     border-color: #e94560;
-    transform: scale(1.05);
+    transform: translateY(-5px) scale(1.05); /* Sobe um pouco e aumenta */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
+/* Active: Feedback de clique físico */
 .sound-btn:active {
     background-color: #e94560;
-    transform: scale(0.97);
+    transform: scale(0.92); /* Encolhe mais para parecer um clique real */
+}
+
+/* Indicador Visual: Quando o som está a tocar (via JS) */
+.sound-btn.playing {
+    border-color: #00ffd2; /* Cor diferente para destacar o som ativo */
+    box-shadow: 0 0 15px rgba(0, 255, 210, 0.6);
+    animation: pulse-glow 1.5s infinite;
+}
+
+/* Animação de pulsação suave para o botão ativo */
+@keyframes pulse-glow {
+    0% { transform: scale(1.05); }
+    50% { transform: scale(1.08); opacity: 0.9; }
+    100% { transform: scale(1.05); }
 }
