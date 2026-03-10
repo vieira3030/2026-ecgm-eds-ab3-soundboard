@@ -1,32 +1,36 @@
-// Array para guardar todos os sons a tocar
 const audioElements = [];
 
-// Função para reproduzir um som
-function playSound(audioSrc) {
+function playSound(audioSrc, btn) { // Adicionamos 'btn' aqui
     const audio = new Audio(audioSrc);
     audioElements.push(audio);
+    
+    // Ativa o indicador visual
+    btn.classList.add('playing');
+    
     audio.play();
 
-    // Remove da lista quando o som acabar
     audio.addEventListener('ended', () => {
+        // Remove o indicador visual quando termina
+        btn.classList.remove('playing');
         const index = audioElements.indexOf(audio);
-        audioElements.splice(index, 1);
+        if (index > -1) audioElements.splice(index, 1);
     });
 }
 
-// Função para parar todos os sons
+// Ligar cada botão (ajustado para passar o elemento)
+const botoes = document.querySelectorAll('.sound-btn');
+botoes.forEach((botao, index) => {
+    botao.addEventListener('click', () => {
+        playSound(`assets/sounds/som${index + 1}.mp3`, botao);
+    });
+});
+
+// No stop-all, não esqueças de limpar as classes:
 document.getElementById('stop-all').addEventListener('click', () => {
     audioElements.forEach(audio => {
         audio.pause();
         audio.currentTime = 0;
     });
     audioElements.length = 0;
-});
-
-// Ligar cada botão a um som
-const botoes = document.querySelectorAll('.sound-btn');
-botoes.forEach((botao, index) => {
-    botao.addEventListener('click', () => {
-        playSound(`assets/sounds/som${index + 1}.mp3`);
-    });
+    botoes.forEach(b => b.classList.remove('playing')); // Limpa tudo
 });
