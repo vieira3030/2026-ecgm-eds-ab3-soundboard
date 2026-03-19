@@ -26,10 +26,22 @@
     </div>
 
     <div class="upload-zone">
-      <h2>Adicionar som</h2>
-     <input type="file" id="upload-input">
-      <label for="upload-input">📂 Escolher ficheiro</label>
-    </div>
+  <h2>Adicionar som</h2>
+
+  <input type="file" id="upload-input" accept=".mp3,.wav,.ogg,audio/*">
+
+  <label for="upload-input" class="upload-btn">
+    <span class="upload-icon">📂</span>
+    <span class="upload-texto">Escolher ficheiro</span>
+  </label>
+
+  <div class="upload-preview" id="upload-preview">
+    <span class="preview-icon">🎵</span>
+    <span class="preview-nome" id="preview-nome">Nenhum ficheiro selecionado</span>
+  </div>
+
+  <p class="upload-formatos">Formatos aceites: .mp3 · .wav · .ogg</p>
+</div>
   </main>
 
   <script src="script.js"></script>
