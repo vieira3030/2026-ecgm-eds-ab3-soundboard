@@ -4,6 +4,8 @@ let botaoAtual = null;
 const grelhaSons = document.getElementById('sound-grid');
 const botoes = document.querySelectorAll('.sound-btn');
 const inputDeAudio = document.getElementById('upload-input');
+const previewEl = document.getElementById('upload-preview');
+const previewNome = document.getElementById('preview-nome');
 
 function mostrarNotificacao(mensagem, tipo = 'erro') {
     const aviso = document.createElement('div');
@@ -82,7 +84,9 @@ if (inputDeAudio) {
             e.target.value = ''; 
             return;
         }
-
+        // Atualizar preview com o nome do ficheiro
+        previewNome.textContent = ficheiro.name.replace(/\.[^/.]+$/, "") + ' — ' + ficheiro.name.split('.').pop().toUpperCase();
+        previewEl.classList.add('tem-ficheiro');
         const somUrl = URL.createObjectURL(ficheiro);
         const novoBotao = document.createElement('button');
         
@@ -96,5 +100,9 @@ if (inputDeAudio) {
         grelhaSons.appendChild(novoBotao);
 mostrarNotificacao(`✅ "${novoBotao.textContent}" adicionado com sucesso!`, 'sucesso'); // ← adicionar aqui
 e.target.value = '';
+setTimeout(() => {
+    previewNome.textContent = 'Nenhum ficheiro selecionado';
+    previewEl.classList.remove('tem-ficheiro');
+}, 3000);
     });
 }

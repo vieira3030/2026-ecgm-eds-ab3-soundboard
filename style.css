@@ -70,3 +70,100 @@ h1 {
     50% { transform: scale(1.08); opacity: 0.9; }
     100% { transform: scale(1.05); }
 }
+/* ── Upload Zone ── */
+.upload-zone {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.upload-zone h2 {
+    font-size: 1.2rem;
+    color: #a0aec0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+/* Esconde o input nativo */
+#upload-input {
+    display: none;
+}
+
+/* Botão estilizado */
+.upload-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #16213e;
+    border: 2px dashed #0f3460;
+    border-radius: 12px;
+    padding: 16px 32px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: white;
+    width: 100%;
+    justify-content: center;
+    transition: all 0.25s ease;
+}
+
+.upload-btn:hover {
+    border-color: #e94560;
+    background-color: #0f3460;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.upload-btn:active {
+    transform: scale(0.97);
+}
+
+.upload-icon {
+    font-size: 1.3rem;
+}
+
+/* Preview do ficheiro */
+.upload-preview {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 10px;
+    padding: 12px 20px;
+    width: 100%;
+    min-height: 48px;
+    transition: border-color 0.3s ease;
+}
+
+.upload-preview.tem-ficheiro {
+    border-color: #00c896;
+}
+
+.preview-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.preview-nome {
+    font-size: 0.9rem;
+    color: #a0aec0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.upload-preview.tem-ficheiro .preview-nome {
+    color: #00c896;
+    font-weight: bold;
+}
+
+/* Formatos aceites */
+.upload-formatos {
+    font-size: 0.78rem;
+    color: #4a5568;
+    letter-spacing: 0.03em;
+}
