@@ -5,24 +5,32 @@ const grelhaSons = document.getElementById('sound-grid');
 const botoes = document.querySelectorAll('.sound-btn');
 const inputDeAudio = document.getElementById('upload-input');
 
-function mostrarErro(mensagem) {
+function mostrarNotificacao(mensagem, tipo = 'erro') {
     const aviso = document.createElement('div');
     aviso.textContent = mensagem;
     aviso.style.position = 'fixed';
     aviso.style.top = '20px';
     aviso.style.left = '50%';
     aviso.style.transform = 'translateX(-50%)';
-    aviso.style.backgroundColor = '#e94560';
+    aviso.style.backgroundColor = tipo === 'sucesso' ? '#00c896' : '#e94560';
     aviso.style.color = 'white';
     aviso.style.padding = '15px 30px';
     aviso.style.borderRadius = '10px';
     aviso.style.boxShadow = '0 5px 15px rgba(0,0,0,0.5)';
     aviso.style.fontWeight = 'bold';
     aviso.style.zIndex = '9999';
-    
+    aviso.style.transition = 'opacity 0.4s ease';
+
     document.body.appendChild(aviso);
-    
-    setTimeout(() => aviso.remove(), 3000);
+
+    setTimeout(() => {
+        aviso.style.opacity = '0';
+        setTimeout(() => aviso.remove(), 400);
+    }, 3000);
+}
+
+function mostrarErro(mensagem) {
+    mostrarNotificacao(mensagem, 'erro');
 }
 
 function playSound(audioSrc, btn) {
@@ -85,5 +93,8 @@ if (inputDeAudio) {
 
         grelhaSons.appendChild(novoBotao);
         e.target.value = ''; 
+        grelhaSons.appendChild(novoBotao);
+mostrarNotificacao(`✅ "${novoBotao.textContent}" adicionado com sucesso!`, 'sucesso'); // ← adicionar aqui
+e.target.value = '';
     });
 }
