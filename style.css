@@ -15,17 +15,49 @@ body {
     padding: 30px;
 }
 
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
 h1 {
     font-size: 2rem;
-    margin-bottom: 30px;
     color: #e94560;
+}
+
+#stop-all {
+    background-color: #16213e;
+    border: 2px solid #e94560;
+    border-radius: 12px;
+    color: white;
+    font-size: 1rem;
+    padding: 12px 28px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+#stop-all:hover {
+    background-color: #e94560;
+    transform: translateY(-2px);
 }
 
 .board {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 16px;
-    max-width: 800px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+    max-width: 1200px;
     width: 100%;
 }
 
@@ -37,42 +69,42 @@ h1 {
     font-size: 1rem;
     padding: 30px 10px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Transição mais "elástica" */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     text-align: center;
     position: relative;
     overflow: hidden;
+    min-width: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
-/* Hover: Feedback visual ao passar o rato */
 .sound-btn:hover {
     background-color: #0f3460;
     border-color: #e94560;
-    transform: translateY(-5px) scale(1.05); /* Sobe um pouco e aumenta */
+    transform: translateY(-5px) scale(1.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
-/* Active: Feedback de clique físico */
 .sound-btn:active {
     background-color: #e94560;
-    transform: scale(0.92); /* Encolhe mais para parecer um clique real */
+    transform: scale(0.92);
 }
 
-/* Indicador Visual: Quando o som está a tocar (via JS) */
 .sound-btn.playing {
-    border-color: #00ffd2; /* Cor diferente para destacar o som ativo */
+    border-color: #00ffd2;
     box-shadow: 0 0 15px rgba(0, 255, 210, 0.6);
     animation: pulse-glow 1.5s infinite;
 }
 
-/* Animação de pulsação suave para o botão ativo */
 @keyframes pulse-glow {
     0% { transform: scale(1.05); }
     50% { transform: scale(1.08); opacity: 0.9; }
     100% { transform: scale(1.05); }
 }
+
 /* ── Upload Zone ── */
 .upload-zone {
-    margin-top: 40px;
+    margin: 40px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -88,12 +120,10 @@ h1 {
     text-transform: uppercase;
 }
 
-/* Esconde o input nativo */
 #upload-input {
     display: none;
 }
 
-/* Botão estilizado */
 .upload-btn {
     display: flex;
     align-items: center;
@@ -125,7 +155,6 @@ h1 {
     font-size: 1.3rem;
 }
 
-/* Preview do ficheiro */
 .upload-preview {
     display: flex;
     align-items: center;
@@ -161,7 +190,6 @@ h1 {
     font-weight: bold;
 }
 
-/* Formatos aceites */
 .upload-formatos {
     font-size: 0.78rem;
     color: #4a5568;
