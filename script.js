@@ -1,6 +1,6 @@
 let audioAtual = null;
 let botaoAtual = null;
-let volumeGlobal = 1; // Variável para controlar o volume master
+let volumeGlobal = 1;
 
 const grelhaSons = document.getElementById('sound-grid');
 const botoes = document.querySelectorAll('.sound-btn');
@@ -9,7 +9,6 @@ const previewEl = document.getElementById('upload-preview');
 const previewNome = document.getElementById('preview-nome');
 const sliderVolume = document.getElementById('volume-slider');
 
-// ---- Guardar nomes no LocalStorage (Issue #19) ----
 function guardarNomesBotoes() {
     const nomes = [];
     document.querySelectorAll('.sound-btn').forEach(btn => {
@@ -28,10 +27,8 @@ function carregarNomesBotoes() {
     });
 }
 
-// Carregar ao iniciar
 document.addEventListener('DOMContentLoaded', carregarNomesBotoes);
 
-// ---- Notificações ----
 function mostrarNotificacao(mensagem, tipo = 'erro') {
     const aviso = document.createElement('div');
     aviso.textContent = mensagem;
@@ -60,7 +57,6 @@ function mostrarErro(mensagem) {
     mostrarNotificacao(mensagem, 'erro');
 }
 
-// ---- Controlo de Volume (Issue #20) ----
 if (sliderVolume) {
     sliderVolume.addEventListener('input', (e) => {
         volumeGlobal = e.target.value;
@@ -70,7 +66,6 @@ if (sliderVolume) {
     });
 }
 
-// ---- Reprodução de Áudio ----
 function playSound(audioSrc, btn) {
     if (audioAtual) {
         audioAtual.pause();
@@ -81,7 +76,7 @@ function playSound(audioSrc, btn) {
     }
 
     audioAtual = new Audio(audioSrc);
-    audioAtual.volume = volumeGlobal; // Aplica volume global
+    audioAtual.volume = volumeGlobal;
     botaoAtual = btn;
     btn.classList.add('playing');
     audioAtual.play();
@@ -93,7 +88,6 @@ function playSound(audioSrc, btn) {
     });
 }
 
-// Lida com clique (tocar som) e duplo clique (renomear)
 function prepararBotao(botao, audioSrc) {
     botao.addEventListener('click', () => {
         playSound(audioSrc, botao);
@@ -112,19 +106,30 @@ botoes.forEach((botao, index) => {
     prepararBotao(botao, `assets/sounds/som${index + 1}.mp3`);
 });
 
-document.getElementById('stop-all').addEventListener('click', () => {
+// Evento atualizado: Parar todos + feedback visual (Issue #23)
+document.getElementById('stop-all').addEventListener('click', (e) => {
+    // 1. Parar o áudio
     if (audioAtual) {
         audioAtual.pause();
         audioAtual.currentTime = 0;
         audioAtual = null;
     }
-    if (botaoAtual) {
-        botaoAtual.classList.remove('playing');
-        botaoAtual = null;
-    }
+    botaoAtual = null;
+
+    // 2. Garantir que remove o neon de TODOS os botões
+    document.querySelectorAll('.sound-btn').forEach(btn => {
+        btn.classList.remove('playing');
+    });
+
+    // 3. Feedback visual no próprio botão
+    const botaoParar = e.target;
+    botaoParar.classList.add('stop-feedback');
+    
+    setTimeout(() => {
+        botaoParar.classList.remove('stop-feedback');
+    }, 200);
 });
 
-// ---- Upload de áudio ----
 if (inputDeAudio) {
     inputDeAudio.addEventListener('change', (e) => {
         const ficheiro = e.target.files[0];
@@ -148,7 +153,7 @@ if (inputDeAudio) {
         prepararBotao(novoBotao, somUrl);
 
         grelhaSons.appendChild(novoBotao);
-        guardarNomesBotoes(); // Atualiza localstorage
+        guardarNomesBotoes();
         
         mostrarNotificacao(`✅ "${novoBotao.textContent}" adicionado com sucesso!`, 'sucesso');
         e.target.value = ''; 
