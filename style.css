@@ -45,12 +45,18 @@ h1 {
     transform: translateY(-2px);
 }
 
-.board {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 16px;
-    max-width: 1200px;
-    width: 100%;
+/* ── Controlo de Volume ── */
+.volume-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+#volume-slider {
+    cursor: pointer;
+    accent-color: #e94560;
+    width: 150px;
 }
 
 .grid {
