@@ -1,6 +1,9 @@
-let audioAtual = null;
+// ---- Otimização de Performance (Issue #24) ----
+// Usamos apenas um elemento Audio global em vez de criar um novo em cada clique
+const reprodutorAudio = new Audio();
 let botaoAtual = null;
 let volumeGlobal = 1;
+let urlsCriados = []; // Guarda os blobs para controlo de memória
 
 const grelhaSons = document.getElementById('sound-grid');
 const botoes = document.querySelectorAll('.sound-btn');
@@ -60,33 +63,38 @@ function mostrarErro(mensagem) {
 if (sliderVolume) {
     sliderVolume.addEventListener('input', (e) => {
         volumeGlobal = e.target.value;
-        if (audioAtual) {
-            audioAtual.volume = volumeGlobal;
-        }
+        reprodutorAudio.volume = volumeGlobal;
     });
 }
 
 function playSound(audioSrc, btn) {
-    if (audioAtual) {
-        audioAtual.pause();
-        audioAtual.currentTime = 0;
+    // Para o áudio atual e liberta a memória do buffer antigo
+    if (!reprodutorAudio.paused) {
+        reprodutorAudio.pause();
     }
+    reprodutorAudio.removeAttribute('src');
+    reprodutorAudio.load();
+
     if (botaoAtual) {
         botaoAtual.classList.remove('playing');
     }
 
-    audioAtual = new Audio(audioSrc);
-    audioAtual.volume = volumeGlobal;
+    // Carrega e toca o novo som
+    reprodutorAudio.src = audioSrc;
+    reprodutorAudio.volume = volumeGlobal;
     botaoAtual = btn;
     btn.classList.add('playing');
-    audioAtual.play();
-
-    audioAtual.addEventListener('ended', () => {
-        btn.classList.remove('playing');
-        audioAtual = null;
-        botaoAtual = null;
-    });
+    
+    // Tenta reproduzir (o catch evita erros na consola se o utilizador clicar muito rápido)
+    reprodutorAudio.play().catch(e => console.log("Reprodução interrompida para novo som."));
 }
+
+reprodutorAudio.addEventListener('ended', () => {
+    if (botaoAtual) {
+        botaoAtual.classList.remove('playing');
+        botaoAtual = null;
+    }
+});
 
 function prepararBotao(botao, audioSrc) {
     botao.addEventListener('click', () => {
@@ -106,17 +114,16 @@ botoes.forEach((botao, index) => {
     prepararBotao(botao, `assets/sounds/som${index + 1}.mp3`);
 });
 
-// Evento atualizado: Parar todos + feedback visual (Issue #23)
 document.getElementById('stop-all').addEventListener('click', (e) => {
-    // 1. Parar o áudio
-    if (audioAtual) {
-        audioAtual.pause();
-        audioAtual.currentTime = 0;
-        audioAtual = null;
+    // 1. Parar o áudio e limpar totalmente a fonte de memória
+    if (!reprodutorAudio.paused) {
+        reprodutorAudio.pause();
     }
+    reprodutorAudio.removeAttribute('src');
+    reprodutorAudio.load();
     botaoAtual = null;
 
-    // 2. Garantir que remove o neon de TODOS os botões
+    // 2. Remover o neon de TODOS os botões
     document.querySelectorAll('.sound-btn').forEach(btn => {
         btn.classList.remove('playing');
     });
@@ -145,8 +152,9 @@ if (inputDeAudio) {
         previewEl.classList.add('tem-ficheiro');
         
         const somUrl = URL.createObjectURL(ficheiro);
-        const novoBotao = document.createElement('button');
+        urlsCriados.push(somUrl); // Guarda o URL para referência de memória
         
+        const novoBotao = document.createElement('button');
         novoBotao.className = 'sound-btn';
         novoBotao.textContent = ficheiro.name.replace(/\.[^/.]+$/, "");
         
