@@ -45,7 +45,6 @@ h1 {
     transform: translateY(-2px);
 }
 
-/* ── Controlo de Volume ── */
 .volume-control {
     display: flex;
     align-items: center;
@@ -108,7 +107,6 @@ h1 {
     100% { transform: scale(1.05); }
 }
 
-/* ── Upload Zone ── */
 .upload-zone {
     margin: 40px auto;
     display: flex;
@@ -200,4 +198,13 @@ h1 {
     font-size: 0.78rem;
     color: #4a5568;
     letter-spacing: 0.03em;
+}
+
+/* Feedback visual para o botão Parar Todos (Issue #23) */
+.stop-feedback {
+    background-color: #ff1e56 !important;
+    border-color: #ff1e56 !important;
+    box-shadow: 0 0 20px rgba(255, 30, 86, 0.8) !important;
+    transform: scale(0.9) !important;
+    transition: all 0.1s ease !important;
 }
