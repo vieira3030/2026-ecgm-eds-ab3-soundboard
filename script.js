@@ -43,6 +43,10 @@ function mostrarNotificacao(mensagem, tipo = 'erro') {
 
 // ---- Controlo de Áudio ----
 if (sliderVolume) {
+    // BUG FIX: Sincronizar volume real com o slider ao carregar a página
+    volumeGlobal = sliderVolume.value;
+    reprodutorAudio.volume = volumeGlobal;
+
     sliderVolume.addEventListener('input', (e) => {
         volumeGlobal = e.target.value;
         reprodutorAudio.volume = volumeGlobal;
