@@ -57,6 +57,14 @@ h1 {
     accent-color: #e94560;
     width: 150px;
 }
+.board {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 16px;
+    max-width: 1200px;
+    width: 100%;
+}
+
 
 .grid {
     display: grid;
@@ -207,4 +215,111 @@ h1 {
     box-shadow: 0 0 20px rgba(255, 30, 86, 0.8) !important;
     transform: scale(0.9) !important;
     transition: all 0.1s ease !important;
+}
+/* ── Responsive: Tablet (600px – 768px) ── */
+@media (max-width: 768px) {
+    body {
+        padding: 20px 16px;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    .grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+    }
+
+    .sound-btn {
+        padding: 22px 8px;
+        font-size: 0.9rem;
+    }
+
+    .upload-zone {
+        max-width: 100%;
+    }
+}
+
+/* ── Responsive: Mobile (até 480px) ── */
+@media (max-width: 480px) {
+    body {
+        padding: 16px 12px;
+    }
+    #volume-slider {
+    width: 100%;
+    max-width: 200px;
+    }
+    .volume-control {
+    width: 100%;
+    justify-content: center;
+    }
+
+    header {
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    #stop-all {
+        width: 100%;
+        text-align: center;
+        padding: 14px 28px; /* área de toque maior */
+    }
+
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .sound-btn {
+    padding: 16px 6px;
+    font-size: 0.82rem;
+    border-radius: 10px;
+    white-space: normal;
+    word-break: break-word;
+    min-height: 56px;           /* altura mínima para nomes curtos */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+    .upload-zone {
+        max-width: 100%;
+        margin: 24px auto;
+    }
+
+    .upload-btn {
+        padding: 18px 20px; /* área de toque mínima ~48px */
+        font-size: 1rem;
+    }
+
+    .upload-preview {
+        padding: 14px 16px;
+    }
+
+    .upload-formatos {
+        text-align: center;
+    }
+}
+
+/* ── Responsive: Mobile pequeno (320px – 360px) ── */
+@media (max-width: 360px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+    }
+
+    .sound-btn {
+    padding: 14px 4px;
+    font-size: 0.75rem;
+    min-height: 52px;
+    }
+
+    h1 {
+        font-size: 1.2rem;
+    }
 }
