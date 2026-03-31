@@ -9,6 +9,7 @@ const inputDeAudio = document.getElementById('upload-input');
 const previewEl = document.getElementById('upload-preview');
 const previewNome = document.getElementById('preview-nome');
 const sliderVolume = document.getElementById('volume-slider');
+const themeToggle = document.getElementById('theme-toggle');
 
 // ---- Configurações (LocalStorage) ----
 function guardarNomesBotoes() {
@@ -26,7 +27,37 @@ function carregarNomesBotoes() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', carregarNomesBotoes);
+// ---- Gestão de Tema ----
+function aplicarTema(modo) {
+    if (modo === 'light') {
+        document.body.classList.add('light-mode');
+        localStorage.setItem('soundboard-tema', 'light');
+        themeToggle.textContent = '☀️';
+    } else {
+        document.body.classList.remove('light-mode');
+        localStorage.setItem('soundboard-tema', 'dark');
+        themeToggle.textContent = '🌙';
+    }
+}
+
+function carregarTema() {
+    const temaSalvo = localStorage.getItem('soundboard-tema') || 'dark';
+    aplicarTema(temaSalvo);
+}
+
+function alternarTema() {
+    const estaEmModoClaro = document.body.classList.contains('light-mode');
+    aplicarTema(estaEmModoClaro ? 'dark' : 'light');
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', alternarTema);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    carregarNomesBotoes();
+    carregarTema();
+});
 
 // ---- UI & Notificações ----
 function mostrarNotificacao(mensagem, tipo = 'erro') {
