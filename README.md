@@ -2,6 +2,9 @@
 
 Projeto desenvolvido no âmbito da disciplina de Engenharia de Software.
 
+## 🌐 Demo ao Vivo
+[Abrir Soundboard](https://vieira3030.github.io/2026-ecgm-eds-ab3-soundboard/)
+
 ## Descrição
 Soundboard web em JavaScript puro que permite reproduzir sons com botões e fazer upload de sons personalizados.
 
