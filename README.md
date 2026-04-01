@@ -33,4 +33,4 @@ Soundboard web em JavaScript puro que permite reproduzir sons com botões e faze
 4. Para parar todos os sons clica em "Parar todos"
 
 ## Screenshots
-![Soundboard](docs/screenshot.png)
+![Soundboard](docs/LayoutFinal.png)
