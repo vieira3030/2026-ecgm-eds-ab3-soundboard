@@ -1,7 +1,10 @@
 const reprodutorAudio = new Audio();
 let botaoAtual = null;
 let volumeGlobal = 1;
+<<<<<<< HEAD
+=======
 let urlsCriados = [];
+>>>>>>> 011e649c99532f29e0a60672240f1e8ce57324bd
 
 const grelhaSons = document.getElementById('sound-grid');
 const botoes = document.querySelectorAll('.sound-btn');
@@ -10,7 +13,10 @@ const previewEl = document.getElementById('upload-preview');
 const previewNome = document.getElementById('preview-nome');
 const sliderVolume = document.getElementById('volume-slider');
 
+<<<<<<< HEAD
+=======
 // ---- Configurações (LocalStorage) ----
+>>>>>>> 011e649c99532f29e0a60672240f1e8ce57324bd
 function guardarNomesBotoes() {
     const nomes = Array.from(document.querySelectorAll('.sound-btn')).map(btn => btn.textContent);
     localStorage.setItem('soundboard-nomes', JSON.stringify(nomes));
@@ -28,7 +34,10 @@ function carregarNomesBotoes() {
 
 document.addEventListener('DOMContentLoaded', carregarNomesBotoes);
 
+<<<<<<< HEAD
+=======
 // ---- UI & Notificações ----
+>>>>>>> 011e649c99532f29e0a60672240f1e8ce57324bd
 function mostrarNotificacao(mensagem, tipo = 'erro') {
     const aviso = document.createElement('div');
     aviso.textContent = mensagem;
@@ -41,7 +50,14 @@ function mostrarNotificacao(mensagem, tipo = 'erro') {
     }, 3000);
 }
 
+<<<<<<< HEAD
+function mostrarErro(mensagem) {
+    mostrarNotificacao(mensagem, 'erro');
+}
+
+=======
 // ---- Controlo de Áudio ----
+>>>>>>> 011e649c99532f29e0a60672240f1e8ce57324bd
 if (sliderVolume) {
     // BUG FIX: Sincronizar volume real com o slider ao carregar a página
     volumeGlobal = sliderVolume.value;
@@ -64,8 +80,13 @@ function playSound(audioSrc, btn) {
         botaoAtual.classList.remove('playing');
     }
 
+<<<<<<< HEAD
+    audioAtual = new Audio(audioSrc);
+    audioAtual.volume = volumeGlobal;
+=======
     reprodutorAudio.src = audioSrc;
     reprodutorAudio.volume = volumeGlobal;
+>>>>>>> 011e649c99532f29e0a60672240f1e8ce57324bd
     botaoAtual = btn;
     btn.classList.add('playing');
     
@@ -73,6 +94,8 @@ function playSound(audioSrc, btn) {
     reprodutorAudio.play().catch(() => {});
 }
 
+<<<<<<< HEAD
+=======
 reprodutorAudio.addEventListener('ended', () => {
     if (botaoAtual) {
         botaoAtual.classList.remove('playing');
@@ -81,6 +104,7 @@ reprodutorAudio.addEventListener('ended', () => {
 });
 
 // ---- Interações dos Botões ----
+>>>>>>> 011e649c99532f29e0a60672240f1e8ce57324bd
 function prepararBotao(botao, audioSrc) {
     botao.addEventListener('click', () => playSound(audioSrc, botao));
 
@@ -97,6 +121,32 @@ botoes.forEach((botao, index) => {
     prepararBotao(botao, `assets/sounds/som${index + 1}.mp3`);
 });
 
+<<<<<<< HEAD
+// Evento atualizado: Parar todos + feedback visual (Issue #23)
+document.getElementById('stop-all').addEventListener('click', (e) => {
+    // 1. Parar o áudio
+    if (audioAtual) {
+        audioAtual.pause();
+        audioAtual.currentTime = 0;
+        audioAtual = null;
+    }
+    botaoAtual = null;
+
+    // 2. Garantir que remove o neon de TODOS os botões
+    document.querySelectorAll('.sound-btn').forEach(btn => {
+        btn.classList.remove('playing');
+    });
+
+    // 3. Feedback visual no próprio botão
+    const botaoParar = e.target;
+    botaoParar.classList.add('stop-feedback');
+    
+    setTimeout(() => {
+        botaoParar.classList.remove('stop-feedback');
+    }, 200);
+});
+
+=======
 document.getElementById('stop-all').addEventListener('click', (e) => {
     if (!reprodutorAudio.paused) {
         reprodutorAudio.pause();
@@ -113,6 +163,7 @@ document.getElementById('stop-all').addEventListener('click', (e) => {
 });
 
 // ---- Upload de Sons ----
+>>>>>>> 011e649c99532f29e0a60672240f1e8ce57324bd
 if (inputDeAudio) {
     inputDeAudio.addEventListener('change', (e) => {
         const ficheiro = e.target.files[0];
