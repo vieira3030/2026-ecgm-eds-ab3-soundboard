@@ -1,36 +1,43 @@
-# Soundboard JS
+# 🎵 Soundboard JS
 
 Projeto desenvolvido no âmbito da disciplina de Engenharia de Software.
+Curso de Engenharia de Computação Gráfica e Multimédia — ESTG-IPVC
 
 ## 🌐 Demo ao Vivo
 [Abrir Soundboard](https://vieira3030.github.io/2026-ecgm-eds-ab3-soundboard/)
 
 ## Descrição
-Soundboard web em JavaScript puro que permite reproduzir sons com botões e fazer upload de sons personalizados.
+Soundboard web em JavaScript puro com 24 botões de som, upload de sons personalizados, controlo de volume e modo escuro/claro.
 
 ## Funcionalidades
-- Reproduzir sons pré-definidos com botões
+- 24 botões com sons pré-definidos
 - Upload de sons personalizados (.mp3, .wav, .ogg)
+- Controlo de volume global
+- Modo escuro / claro com preferência guardada
+- Feedback visual nos botões durante reprodução
+- Validação de formatos de ficheiro
 
-## Como correr localmente
-1. Clonar o repositório: `git clone https://github.com/SEU_UTILIZADOR/soundboard.git`
-2. Abrir o ficheiro `index.html` no browser
+## Como instalar localmente
+1. Clonar o repositório: `git clone https://github.com/vieira3030/2026-ecgm-eds-ab3-soundboard.git`
+2. Entrar na pasta: `cd 2026-ecgm-eds-ab3-soundboard`
+3. Abrir o ficheiro `index.html` no browser
 
-## Grupo
-- Afonso Manuel Gomes 
-- Rodrigo Malheiro
-- Rodrigo Vieira
+## Como usar
+1. Clica num botão para reproduzir o som
+2. Para adicionar um som próprio, clica em "Escolher ficheiro" e seleciona um ficheiro .mp3, .wav ou .ogg
+3. Para parar o som clica em "Parar todos"
+4. Usa o slider para controlar o volume
+5. Clica no 🌙/☀️ para alternar entre modo escuro e claro
 
 ## Tecnologias
 - HTML5
 - CSS3
+- JavaScript (Web Audio API, FileReader API, localStorage)
 
-- JavaScript (Web Audio API)
-## Como usar
-1. Abre o ficheiro `index.html` no browser
-2. Clica num botão para reproduzir o som
-3. Para adicionar um som próprio, clica em "Adicionar som" e escolhe um ficheiro .mp3 ou .wav
-4. Para parar todos os sons clica em "Parar todos"
+## Grupo
+- Afonso Manuel Gomes
+- Rodrigo Malheiro
+- Rodrigo Vieira
 
 ## Screenshots
 ![Soundboard](docs/LayoutFinal.png)
