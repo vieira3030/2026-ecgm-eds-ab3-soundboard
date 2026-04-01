@@ -1,10 +1,7 @@
 const reprodutorAudio = new Audio();
 let botaoAtual = null;
 let volumeGlobal = 1;
-
-
 let urlsCriados = [];
-
 
 const grelhaSons = document.getElementById('sound-grid');
 const botoes = document.querySelectorAll('.sound-btn');
@@ -12,10 +9,9 @@ const inputDeAudio = document.getElementById('upload-input');
 const previewEl = document.getElementById('upload-preview');
 const previewNome = document.getElementById('preview-nome');
 const sliderVolume = document.getElementById('volume-slider');
-
+const themeToggle = document.getElementById('theme-toggle');
 
 // ---- Configurações (LocalStorage) ----
-
 function guardarNomesBotoes() {
     const nomes = Array.from(document.querySelectorAll('.sound-btn')).map(btn => btn.textContent);
     localStorage.setItem('soundboard-nomes', JSON.stringify(nomes));
@@ -31,11 +27,39 @@ function carregarNomesBotoes() {
     });
 }
 
-document.addEventListener('DOMContentLoaded', carregarNomesBotoes);
+// ---- Gestão de Tema ----
+function aplicarTema(modo) {
+    if (modo === 'light') {
+        document.body.classList.add('light-mode');
+        localStorage.setItem('soundboard-tema', 'light');
+        themeToggle.textContent = '☀️';
+    } else {
+        document.body.classList.remove('light-mode');
+        localStorage.setItem('soundboard-tema', 'dark');
+        themeToggle.textContent = '🌙';
+    }
+}
 
+function carregarTema() {
+    const temaSalvo = localStorage.getItem('soundboard-tema') || 'dark';
+    aplicarTema(temaSalvo);
+}
+
+function alternarTema() {
+    const estaEmModoClaro = document.body.classList.contains('light-mode');
+    aplicarTema(estaEmModoClaro ? 'dark' : 'light');
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', alternarTema);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    carregarNomesBotoes();
+    carregarTema();
+});
 
 // ---- UI & Notificações ----
-
 function mostrarNotificacao(mensagem, tipo = 'erro') {
     const aviso = document.createElement('div');
     aviso.textContent = mensagem;
@@ -48,14 +72,7 @@ function mostrarNotificacao(mensagem, tipo = 'erro') {
     }, 3000);
 }
 
-
-function mostrarErro(mensagem) {
-    mostrarNotificacao(mensagem, 'erro');
-}
-
-
 // ---- Controlo de Áudio ----
-
 if (sliderVolume) {
     // BUG FIX: Sincronizar volume real com o slider ao carregar a página
     volumeGlobal = sliderVolume.value;
@@ -78,21 +95,14 @@ function playSound(audioSrc, btn) {
         botaoAtual.classList.remove('playing');
     }
 
-
-    audioAtual = new Audio(audioSrc);
-    audioAtual.volume = volumeGlobal;
-
     reprodutorAudio.src = audioSrc;
     reprodutorAudio.volume = volumeGlobal;
-
     botaoAtual = btn;
     btn.classList.add('playing');
     
     // Reproduz o som (o catch vazio previne erros visíveis sem usar console.log)
     reprodutorAudio.play().catch(() => {});
 }
-
-
 
 reprodutorAudio.addEventListener('ended', () => {
     if (botaoAtual) {
@@ -102,7 +112,6 @@ reprodutorAudio.addEventListener('ended', () => {
 });
 
 // ---- Interações dos Botões ----
-
 function prepararBotao(botao, audioSrc) {
     botao.addEventListener('click', () => playSound(audioSrc, botao));
 
@@ -117,31 +126,6 @@ function prepararBotao(botao, audioSrc) {
 
 botoes.forEach((botao, index) => {
     prepararBotao(botao, `assets/sounds/som${index + 1}.mp3`);
-});
-
-HEAD
-// Evento atualizado: Parar todos + feedback visual (Issue #23)
-document.getElementById('stop-all').addEventListener('click', (e) => {
-    // 1. Parar o áudio
-    if (audioAtual) {
-        audioAtual.pause();
-        audioAtual.currentTime = 0;
-        audioAtual = null;
-    }
-    botaoAtual = null;
-
-    // 2. Garantir que remove o neon de TODOS os botões
-    document.querySelectorAll('.sound-btn').forEach(btn => {
-        btn.classList.remove('playing');
-    });
-
-    // 3. Feedback visual no próprio botão
-    const botaoParar = e.target;
-    botaoParar.classList.add('stop-feedback');
-    
-    setTimeout(() => {
-        botaoParar.classList.remove('stop-feedback');
-    }, 200);
 });
 
 document.getElementById('stop-all').addEventListener('click', (e) => {
