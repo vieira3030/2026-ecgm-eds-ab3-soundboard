@@ -1,3 +1,4 @@
+/* ================= GERAL ================= */
 * {
     margin: 0;
     padding: 0;
@@ -15,6 +16,7 @@ body {
     padding: 30px;
 }
 
+/* ================= HEADER & CONTROLOS ================= */
 header {
     display: flex;
     flex-direction: column;
@@ -58,6 +60,7 @@ h1 {
     width: 150px;
 }
 
+/* ================= GRELHA DE SONS ================= */
 .grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -101,12 +104,16 @@ h1 {
     animation: pulse-glow 1.5s infinite;
 }
 
+<<<<<<< HEAD
 @keyframes pulse-glow {
     0% { transform: scale(1.05); }
     50% { transform: scale(1.08); opacity: 0.9; }
     100% { transform: scale(1.05); }
 }
 
+=======
+/* ================= ZONA DE UPLOAD ================= */
+>>>>>>> 011e649c99532f29e0a60672240f1e8ce57324bd
 .upload-zone {
     margin: 40px auto;
     display: flex;
@@ -200,11 +207,46 @@ h1 {
     letter-spacing: 0.03em;
 }
 
+<<<<<<< HEAD
 /* Feedback visual para o botão Parar Todos (Issue #23) */
+=======
+/* ================= ANIMAÇÕES & COMPONENTES ================= */
+@keyframes pulse-glow {
+    0% { transform: scale(1.05); }
+    50% { transform: scale(1.08); opacity: 0.9; }
+    100% { transform: scale(1.05); }
+}
+
+>>>>>>> 011e649c99532f29e0a60672240f1e8ce57324bd
 .stop-feedback {
     background-color: #ff1e56 !important;
     border-color: #ff1e56 !important;
     box-shadow: 0 0 20px rgba(255, 30, 86, 0.8) !important;
     transform: scale(0.9) !important;
     transition: all 0.1s ease !important;
+<<<<<<< HEAD
+=======
+}
+
+.notificacao {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    font-weight: bold;
+    z-index: 9999;
+    transition: opacity 0.4s ease;
+}
+
+.notificacao.sucesso {
+    background-color: #00c896;
+}
+
+.notificacao.erro {
+    background-color: #e94560;
+>>>>>>> 011e649c99532f29e0a60672240f1e8ce57324bd
 }
