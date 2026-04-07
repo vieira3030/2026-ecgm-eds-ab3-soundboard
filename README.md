@@ -109,7 +109,7 @@ soundboard/
 
 ---
 
-
+## Coisas Intressantes!
 ## 🚀 Destaques Técnicos
 
 - **Sem dependências externas** — o projeto foi desenvolvido 100% em JavaScript 
