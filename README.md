@@ -4,6 +4,18 @@ Projeto desenvolvido no âmbito da disciplina de Engenharia de Software.
 Curso de Engenharia de Computação Gráfica e Multimédia — ESTG-IPVC  
 Ano letivo 2025/2026
 
+---
+
+## Grupo
+| Nome | Número |
+|------|--------|
+| Afonso Manuel Gomes | 34066|git add README.md
+| Rodrigo Malheiro | 33103  |
+| Rodrigo Vieira | 33445 |
+
+---
+
+
 ## 🌐 Demo ao Vivo
 [👉 Abrir Soundboard](https://vieira3030.github.io/2026-ecgm-eds-ab3-soundboard/)
 
@@ -88,16 +100,38 @@ soundboard/
     └── LayoutFinal.png     # Screenshot final
 ```
 
----
-
-## Grupo
-| Nome | Número |
-|------|--------|
-| Afonso Manuel Gomes | 34066|
-| Rodrigo Malheiro | 33103  |
-| Rodrigo Vieira | 33445 |
 
 ---
 
 ## Screenshots
 ![Soundboard](docs/LayoutFinal.png)
+
+
+---
+
+
+## 🚀 Destaques Técnicos
+
+- **Sem dependências externas** — o projeto foi desenvolvido 100% em JavaScript 
+  puro, sem frameworks ou bibliotecas externas
+- **Web Audio API** — utilizada para reprodução de áudio nativa no browser
+- **FileReader API** — permite carregar ficheiros locais do utilizador sem necessitar 
+  de servidor
+- **URL.createObjectURL()** — converte ficheiros locais em URLs temporários para 
+  reprodução imediata
+- **localStorage** — os nomes dos botões e preferência de tema persistem entre sessões
+- **CSS Grid** — a grelha de 24 botões adapta-se automaticamente a qualquer tamanho 
+  de ecrã
+
+  ---
+
+  ## 🧠 Desafios e Aprendizagens
+
+- Gerir conflitos de merge entre 3 elementos a trabalhar em simultâneo no mesmo repositório
+- Perceber as limitações do browser em relação a ficheiros locais (sem servidor)
+- Implementar persistência sem base de dados usando apenas localStorage
+- Configurar o GitHub Pages e resolver problemas de deploy
+- Trabalhar com metodologia Scrum e sprints semanais pela primeira vez
+
+
+---
