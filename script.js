@@ -12,11 +12,23 @@ const sliderVolume = document.getElementById('volume-slider');
 const themeToggle = document.getElementById('theme-toggle');
 
 // ---- Configurações (LocalStorage) ----
+/**
+ * Guarda os nomes personalizados dos botões no localStorage.
+ * Extrai o texto de cada botão de som e o armazena em formato JSON.
+ * @function guardarNomesBotoes
+ * @returns {void}
+ */
 function guardarNomesBotoes() {
     const nomes = Array.from(document.querySelectorAll('.sound-btn')).map(btn => btn.textContent);
     localStorage.setItem('soundboard-nomes', JSON.stringify(nomes));
 }
 
+/**
+ * Carrega e aplica os nomes personalizados dos botões a partir do localStorage.
+ * Se não existirem nomes salvos, a função termina sem fazer nada.
+ * @function carregarNomesBotoes
+ * @returns {void}
+ */
 function carregarNomesBotoes() {
     const guardado = localStorage.getItem('soundboard-nomes');
     if (!guardado) return;
@@ -28,6 +40,13 @@ function carregarNomesBotoes() {
 }
 
 // ---- Gestão de Tema ----
+/**
+ * Aplica o tema visual (claro ou escuro) à página.
+ * Também atualiza o localStorage e o ícone do botão de tema.
+ * @function aplicarTema
+ * @param {string} modo - O modo do tema: 'light' para modo claro ou 'dark' para modo escuro.
+ * @returns {void}
+ */
 function aplicarTema(modo) {
     if (modo === 'light') {
         document.body.classList.add('light-mode');
@@ -40,11 +59,23 @@ function aplicarTema(modo) {
     }
 }
 
+/**
+ * Carrega o tema salvo no localStorage e o aplica à página.
+ * Se não houver tema salvo, o padrão é o modo escuro ('dark').
+ * @function carregarTema
+ * @returns {void}
+ */
 function carregarTema() {
     const temaSalvo = localStorage.getItem('soundboard-tema') || 'dark';
     aplicarTema(temaSalvo);
 }
 
+/**
+ * Alterna entre o modo claro e o modo escuro.
+ * Se estiver em modo claro, muda para escuro, e vice-versa.
+ * @function alternarTema
+ * @returns {void}
+ */
 function alternarTema() {
     const estaEmModoClaro = document.body.classList.contains('light-mode');
     aplicarTema(estaEmModoClaro ? 'dark' : 'light');
@@ -60,6 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ---- UI & Notificações ----
+/**
+ * Exibe uma notificação temporária na tela.
+ * A notificação desaparece automaticamente após 3 segundos com um efeito de desvanecer.
+ * @function mostrarNotificacao
+ * @param {string} mensagem - O texto a ser exibido na notificação.
+ * @param {string} [tipo='erro'] - O tipo de notificação: 'erro', 'sucesso' ou outro.
+ * @returns {void}
+ */
 function mostrarNotificacao(mensagem, tipo = 'erro') {
     const aviso = document.createElement('div');
     aviso.textContent = mensagem;
@@ -84,6 +123,14 @@ if (sliderVolume) {
     });
 }
 
+/**
+ * Reproduz um som a partir de uma fonte de áudio.
+ * Interrompe qualquer som que esteja sendo reproduzido e atualiza o estado visual do botão.
+ * @function playSound
+ * @param {string} audioSrc - O caminho ou URL do arquivo de áudio a ser reproduzido.
+ * @param {HTMLElement} btn - O elemento do botão associado ao som (para feedback visual).
+ * @returns {void}
+ */
 function playSound(audioSrc, btn) {
     if (!reprodutorAudio.paused) {
         reprodutorAudio.pause();
@@ -112,6 +159,14 @@ reprodutorAudio.addEventListener('ended', () => {
 });
 
 // ---- Interações dos Botões ----
+/**
+ * Configura os event listeners para um botão de som.
+ * Clique simples: reproduz o som. Duplo clique: permite renomear o som.
+ * @function prepararBotao
+ * @param {HTMLElement} botao - O elemento do botão a ser configurado.
+ * @param {string} audioSrc - O caminho ou URL do arquivo de áudio associado.
+ * @returns {void}
+ */
 function prepararBotao(botao, audioSrc) {
     botao.addEventListener('click', () => playSound(audioSrc, botao));
 
@@ -144,6 +199,15 @@ document.getElementById('stop-all').addEventListener('click', (e) => {
 });
 
 // ---- Upload de Sons ----
+/**
+ * Lógica para upload e processamento de arquivos de áudio.
+ * Valida o tipo de arquivo, cria uma URL de objeto, adiciona um novo botão à grelha
+ * e mostra uma notificação de sucesso. O preview desaparece após 3 segundos.
+ * 
+ * @event change Disparado quando o utilizador seleciona um arquivo de áudio.
+ * @param {Event} e - O evento de mudança do input de arquivo.
+ * @returns {void}
+ */
 if (inputDeAudio) {
     inputDeAudio.addEventListener('change', (e) => {
         const ficheiro = e.target.files[0];
